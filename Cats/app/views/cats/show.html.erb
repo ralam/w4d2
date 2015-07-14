@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<h1>About this cat:</h1>
   <table>
     <tr>
       <th>Birth date</th>
@@ -18,5 +18,12 @@
       <td><%= @cat.description || "No description" %></td>
     </tr>
   </table>
+  <br>
+  <br>
+  <h2>Rental Requests</h2>
+  <% CatRentalRequest.where(cat_id: @cat.id).order(:start_date).each do |crr| %>
+    <%= "From #{crr.start_date} to #{crr.end_date}" %>
+    <br>
+  <% end %>
 </body>
 </html>

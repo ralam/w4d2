@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   resources :cats
-  resources :cat_rental_requests
+  resources :cat_rental_requests, except: [:show]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

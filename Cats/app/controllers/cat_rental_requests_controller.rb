@@ -15,10 +15,16 @@ class CatRentalRequestsController < ApplicationController
     end
   end
 
-  # def show
-  #   @requests = CatRentalRequest.where(cat_id: cat_id)
-  #   redirect_to cat_path(cat_id)
-  # end
+  def update
+    # byebug
+    @crr = CatRentalRequest.find(params[:id])
+    if params[:status] == "approve"
+      @crr.approve!
+    elsif params[:status] == "deny"
+      @crr.deny!
+    end
+    redirect_to cat_path(@crr.cat_id)
+  end
 
   private
 

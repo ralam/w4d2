@@ -15,6 +15,21 @@ class CatRentalRequest < ActiveRecord::Base
     :class_name => "Cat"
   )
 
+  def approve!
+    self.status = "APPROVED" if self.status = "PENDING"
+    self.save!
+    deny_overlapping_pending_requests
+  end
+
+  def deny!
+    self.status = "DENIED"
+    self.save!
+  end
+
+  def pending?
+    self.status == "PENDING"
+  end
+
   private
 
   def overlapping_requests(requests)
@@ -32,4 +47,13 @@ class CatRentalRequest < ActiveRecord::Base
     return true if results.length <= 1
     overlapping_requests(results)
   end
+
+  def deny_overlapping_pending_requests
+    results = CatRentalRequest.where cat_id:cat_id, status:"PENDING"
+    results.each do |result|
+      result.deny! if overlaps?(result)
+    end
+  end
+
+
 end

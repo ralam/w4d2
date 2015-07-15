@@ -2,32 +2,6 @@
 <html>
 <body>
   <h1> Make a new cat. </h1>
-  <!-- <form action="<%= cats_url %>" method="post"> -->
-    <%= render "form" %>
-    <!-- <label for="birthdate">Birthdate</label>
-    <input type="date" name="cat[birth_date]" id="birthdate">
-    <br>
-    <label for="cat_color">Color</label>
-    <select name="cat[color]" id="cat_color">
-      <option value="" selected="selected"></option>
-      <% Cat::COLOR.each do |color| %>
-        <option value=<%= color %> > <%= color.capitalize %> </option>
-      <% end %>
-    </select>
-    <br>
-    <label for="name">Name</label>
-    <input type="text" name="cat[name]" id="name">
-    <br>
-    <input type="radio" name="cat[sex]" id="cat_sex_female" value="F">
-    <label for="cat_sex_female">Female</label>
-    <input type="radio" name="cat[sex]" id="cat_sex_male" value="M">
-    <label for="cat_sex_male">Male</label>
-    <br>
-    <label for="desc">Description</label>
-    <input type="textarea" name="cat[description]" id="desc">
-    <br>
-    <input type="submit" value="Create cat"> -->
-
-  <!-- </form> -->
+  <%= render "form" %>
 </body>
 </html>

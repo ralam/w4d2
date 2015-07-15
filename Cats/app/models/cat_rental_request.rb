@@ -5,8 +5,10 @@ class CatRentalRequest < ActiveRecord::Base
     crr.status ||= "PENDING"
   end
   validates :cat_id, :start_date, :end_date, :presence => true
+  validate :sensible_date
   validates :status, inclusion: {in: STATUS}
   validate :overlapping_approved_requests
+
 
   belongs_to(
     :cat,
@@ -45,7 +47,9 @@ class CatRentalRequest < ActiveRecord::Base
   def overlapping_approved_requests
     results = CatRentalRequest.where cat_id:cat_id, status:"APPROVED"
     return true if results.length <= 1
-    overlapping_requests(results)
+    if overlapping_requests(results)
+      errors[:bad_request] << "It overlaps with someone else's request"
+    end
   end
 
   def deny_overlapping_pending_requests
@@ -55,5 +59,9 @@ class CatRentalRequest < ActiveRecord::Base
     end
   end
 
-
+  def sensible_date
+    if (start_date > end_date) || (start_date >= Time.now.to_date)
+      errors[:bad_dates] << "Your dates don't make sense"
+    end
+  end
 end
